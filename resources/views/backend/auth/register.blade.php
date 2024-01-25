@@ -12,19 +12,28 @@
 <body>
     
     <div class="wrapper bg-white">
-        <div class="h2 text-center">Register</div>
+        <div class="h2 text-center">Dashboard</div>
         <div class="h4 text-muted text-center pt-2">Create A New Account</div>
         {!! Form::open(['method'=>'post', 'route'=>'register']) !!}
         {!! Form::label('name', 'Name') !!}
-        {!! Form::text('name', null, ['class'=>'form-control form-control-sm']) !!}
+        {!! Form::text('name', null, ['class'=>$errors->has('name') ? 'is-invalid form-control form-control-sm' : 'form-control form-control-sm']) !!}
+        @error('name')
+            <p class="text-danger">{{$message}}</p>
+        @enderror
         {!! Form::label('email', 'Email', ['class'=>'mt-2']) !!}
-        {!! Form::email('email', null, ['class'=>'form-control form-control-sm']) !!}
+        {!! Form::email('email', null, ['class'=>$errors->has('email') ? 'is-invalid form-control form-control-sm' : 'form-control form-control-sm']) !!}
+        @error('email')
+            <p class="text-danger">{{$message}}</p>
+        @enderror
         {!! Form::label('password', 'Password',['class'=>'mt-2']) !!}
-        {!! Form::password('password', ['class'=>'form-control form-control-sm']) !!}
-        {!! Form::label('confirm_pass', 'Confirm Password', ['class'=>'mt-2']) !!}
-        {!! Form::password('confirm_pass', ['class'=>'form-control form-control-sm']) !!}
+        {!! Form::password('password', ['class'=>$errors->has('password') ? 'is-invalid form-control form-control-sm' : 'form-control form-control-sm']) !!}
+        @error('password')
+            <p class="text-danger">{{$message}}</p>
+        @enderror
+        {!! Form::label('password_confirmation', 'Confirm Password', ['class'=>'mt-2']) !!}
+        {!! Form::password('password_confirmation', ['class'=>'form-control form-control-sm']) !!}
         <div class="d-grid">
-        {!! Form::button('Sign Up', ['type'=>'submit', 'class'=>'btn btn-info btn-sm mt-2']) !!}
+        {!! Form::button('Register', ['type'=>'submit', 'class'=>'btn btn-info btn-sm mt-2']) !!}
         </div>
         {!! Form::close() !!}
         <div class="pt-3 text-muted">
@@ -66,6 +75,8 @@
             <div class="text-center pt-3 text-muted">Not a member? <a href="{{route('register')}}">Sign up</a></div>
         </form> --}}
     </div>
+
+    <p class="text-center">password: 12345678</p>
 
 
 
