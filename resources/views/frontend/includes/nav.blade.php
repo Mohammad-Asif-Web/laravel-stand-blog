@@ -21,6 +21,9 @@
             <li class="nav-item">
               <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{route('login')}}">Admin Sign In</a>
+            </li>
           </ul>
         </div>
       </div>
