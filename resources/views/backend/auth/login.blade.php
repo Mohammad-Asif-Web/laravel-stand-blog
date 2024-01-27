@@ -50,6 +50,7 @@
                         <span class="checkmark"></span>
                     </label>
                 </div>
+                {{-- forgot password --}}
                 <div class="ml-auto">
                     <a href="{{route('password.request')}}" id="forgot">Forgot Password?</a>
                 </div>

@@ -22,12 +22,13 @@ Route::middleware('guest')->group(function () {
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
+    // this is for forgot password form Page View
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');
-
+    // this is for store data by forgot password form 
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
                 ->name('password.email');
-
+    // reset password view after getting email link
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
                 ->name('password.reset');
 
