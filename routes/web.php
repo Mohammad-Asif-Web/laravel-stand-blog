@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\BackendController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -20,10 +21,13 @@ Route::get('/',[FrontendController::class, 'index'])->name('front.index');
 Route::get('/single-post',[FrontendController::class, 'single'])->name('front.single');
 Route::get('/about',[FrontendController::class, 'about'])->name('front.about');
 Route::get('/contact',[FrontendController::class, 'contact'])->name('front.contact');
+
 // Backend
-Route::group(['prefix'=>'dashboard'],function(){
+// Routes group with Prefix, multi Middlewares and names
+Route::group(['prefix'=>'dashboard', 'middleware'=>['auth','verified']],function(){
     Route::get('/',[BackendController::class, 'index'])->name('back.index');
     Route::get('/blank',[BackendController::class, 'blankPage'])->name('blank');
+    Route::resource('/category', CategoryController::class);
 });
 
 // Route::get('/dashboard', function () {
