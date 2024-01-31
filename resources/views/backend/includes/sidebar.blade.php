@@ -22,8 +22,8 @@
                 </a>
                 <div class="collapse" id="category" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="layout-static.html">Create Category</a>
-                        <a class="nav-link" href="layout-sidenav-light.html">Category List</a>
+                        <a class="nav-link" href="{{route('category.create')}}">Create Category</a>
+                        <a class="nav-link" href="{{route('category.index')}}">Category List</a>
                     </nav>
                 </div>
                                     {{-- post --}}
