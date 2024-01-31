@@ -65,15 +65,15 @@
                                         <i class="fa-solid fa-edit"></i>
                                     </a>
                                     {{-- delete --}}
-                                    {{-- <form method="post" action="{{route('category.destroy', $category->id)}}">
+                                    <form method="post" action="{{route('category.destroy', $category->id)}}">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-sm btn-danger show-alert-delete-box">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
-                                    </form> --}}
+                                    </form>
                                     {{-- this is Lravel Collective Form delete method --}}
-                                    {!! Form::open([
+                                    {{-- {!! Form::open([
                                         'method'=>'delete',
                                         'route'=>['category.destroy', $category->id]
                                         ]) 
@@ -83,7 +83,7 @@
                                         'class'=>'btn btn-sm btn-danger show-alert-delete-box',
                                         ]) 
                                     !!}
-                                    {!! Form::close() !!}
+                                    {!! Form::close() !!} --}}
                                 </td>
                             </tr>
                             @endforeach
