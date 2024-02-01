@@ -26,6 +26,18 @@
                         <a class="nav-link" href="{{route('category.index')}}">Category List</a>
                     </nav>
                 </div>
+                                    {{--sub category --}}
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#sub-category" aria-expanded="false" aria-controls="sub-category">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Sub Category
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="sub-category" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{route('sub-category.create')}}">Create Sub Category</a>
+                        <a class="nav-link" href="{{route('sub-category.index')}}">Sub Category List</a>
+                    </nav>
+                </div>
                                     {{-- tag --}}
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#Tags" aria-expanded="false" aria-controls="Tags">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
