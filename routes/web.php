@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\BackendController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\TagController;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -31,8 +32,11 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['auth','verified']],function
     Route::get('/',[BackendController::class, 'index'])->name('back.index');
     Route::get('/blank',[BackendController::class, 'blankPage'])->name('blank');
     Route::resource('/category', CategoryController::class);
+    // Get Sub Category by Cateogory Id Custom api Route
+    Route::get('/get-subcategory/{id}', [SubCategoryController::class, 'getSubCategoryByCategoryId']);
     Route::resource('/sub-category', SubCategoryController::class);
     Route::resource('/tag', TagController::class);
+    Route::resource('/post', PostController::class);
 });
 
 // Route::get('/dashboard', function () {
