@@ -58,8 +58,8 @@
                 </a>
                 <div class="collapse" id="posts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="layout-static.html">Create Post</a>
-                        <a class="nav-link" href="layout-sidenav-light.html">Post List</a>
+                        <a class="nav-link" href="{{route('post.create')}}">Create Post</a>
+                        <a class="nav-link" href="{{route('post.index')}}">Post List</a>
                     </nav>
                 </div>
 
