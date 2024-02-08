@@ -1,0 +1,23 @@
+.post-table th, .post-table td{
+    vertical-align: middle;
+}
+.post-table hr{
+    margin: 0 0;
+}
+.post-table tr{
+    border: 2px solid seagreen;
+}
+.post-table .sl{
+    font-size: 20px;
+}
+
+.post-table img{
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.post-table th, .post-table th span{
+    font-size: 14px;
+    text-align: center;
+}
