@@ -21,3 +21,11 @@
     font-size: 14px;
     text-align: center;
 }
+
+.post-table span a{
+    text-decoration: none;
+    color: darkcyan;
+}
+.post-table span a:hover{
+    color: darkblue;
+}
