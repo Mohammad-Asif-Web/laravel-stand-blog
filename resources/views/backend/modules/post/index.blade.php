@@ -37,6 +37,7 @@
                                 <span>Is Approved</span>
                             </th>
                             <th>Photo</th>
+                            <th>Tags</th>
                             <th>
                                 <span>Created At</span><hr>
                                 <span>Updated At</span><hr>
@@ -58,8 +59,8 @@
                                     <span>{{$post->slug}}</span>
                                 </td>
                                 <td>
-                                    <span>{{$post->category->name}}</span><hr>
-                                    <span>{{$post->subCategory->name}}</span>
+                                    <span><a href="{{route('category.show', $post->category_id)}}"> {{$post->category->name}}</a></span><hr>
+                                    <span><a href="{{route('sub-category.show', $post->sub_category_id)}}"> {{$post->subCategory->name}}</a></span><hr>
                                 </td>
                                 <td>
                                     <span>{{$post->status == 1 ? 'Active' : 'Inactive'}}</span><hr>
@@ -69,13 +70,22 @@
                                         data-src="{{url('images/original/'.$post->photo)}}"
                                          class="post-img" alt="post_img">
                                 </td>
+                                <td>
+                                    @php
+                                    $classes = ['btn-success', 'btn-danger', 'btn-warning', 'btn-info', 'btn-primary', 'btn-secondary'];
+                                    @endphp
+                                    @foreach ($post->tag as $tag)
+                                    <a href="{{route('tag.show', $tag->id)}}" 
+                                        class="btn btn-sm {{$classes[rand(0,5)]}} mb-1">{{$tag->name}}</a>
+                                    @endforeach
+                                </td>
 
                                 <td>
                                     <span>{{$post->created_at->toDayDateTimeString()}}</span><hr>
                                     <span>{{$post->created_at == $post->updated_at ? 'Not Updated' : $post->updated_at->toDayDateTimeString()}}</span><hr>
                                     <span>{{$post->user->name}}</span>
                                 </td>
-                                <td class="d-flex gap-1">
+                                <td class="d-flex gap-1 justify-content-center">
                                     {{-- show --}}
                                     <a href="{{route('post.show', $post->id)}}"
                                         class="btn btn-info btn-sm">
@@ -105,9 +115,9 @@
                                 </td>
                             </tr>
                         @endif
-
                     </tbody>
                 </table>
+                {{-- pagination --}}
                 {{$posts->links()}}
             </div>
         </div>
