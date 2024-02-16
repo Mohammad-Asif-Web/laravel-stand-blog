@@ -55,7 +55,7 @@
                 </form> --}}
 
                 {{-- this is Laravel Collective Form Design --}}
-                {!! Form::model($post, ['method'=>'put', 'route'=>['post.update', $post->id]]) !!}
+                {!! Form::model($post, ['method'=>'put', 'route'=>['post.update', $post->id], 'files'=>true]) !!}
                 {!! Form::label('title', 'Title:', ['class'=>'fw-bold']) !!}
                 {!! Form::text('title', null, ['id'=>'title', 'class'=>'form-control', 'placeholder'=>'Enter post name']) !!}
                 {!! Form::label('slug', 'Slug:', ['class'=>'mt-3 fw-bold']) !!}
@@ -79,11 +79,12 @@
                 {!! Form::label('description', 'Description:', ['class'=>'mt-3 fw-bold']) !!}
                 {!! Form::textarea('description', null, ['class'=>'form-control', 'id'=>'editor']) !!}
                
+                {{-- array akare data ana hoise --}}
                 {!! Form::label('tag_id', 'Select Tag:', ['class'=>'mt-3 fw-bold']) !!}
                 <div class="row">
                     @foreach ($tags as $tag)
                     <div class="col-md-3">
-                        {!! Form::checkbox('tag_ids[]', $tag->id, false); !!} <span>{{$tag->name}}</span>
+                        {!! Form::checkbox('tag_ids[]', $tag->id, in_array($tag->id, $selected_tags)); !!} <span>{{$tag->name}}</span>
                     </div> 
                     @endforeach
                 </div>
@@ -91,7 +92,15 @@
                 {!! Form::label('photo', 'Select Photo:', ['class'=>'mt-3 fw-bold']) !!}
                 {!! Form::file('photo', ['class'=>'form-control']) !!}
 
-                {!! Form::button('Post Update', ['type'=>'submit', 'class'=>'btn btn-success mt-3']) !!}
+                {{-- showing image --}}
+                <div class="my-3">
+                    <img src="{{url('images/thumbnail/'.$post->photo)}}"
+                    data-src="{{url('images/original/'.$post->photo)}}"
+                        class="post-img" alt="post_img">
+                </div>
+
+
+                {!! Form::button('Post Update', ['type'=>'submit', 'class'=>'btn btn-success mt-2']) !!}
                 {!! Form::close() !!}
             </div>
         </div>
