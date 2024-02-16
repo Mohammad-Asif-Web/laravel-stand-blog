@@ -151,7 +151,7 @@
             </div>
         </div> 
         {{-- Sub cateogory --}}
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-lg-12">
                 <div class="card bg-primary">
                     <div class="card-header d-flex justify-content-between bg-primary p-2">
@@ -193,7 +193,51 @@
                                 </tr>
                                 <tr>
                                     <th>Updated At</th>
-                                    <td>{{$post->subCategory->created_at == $post->category->updated_at ? 'Not Updated' : $post->category->updated_at->toDayDateTimeString()}}</td>
+                                    <td>{{$post->subCategory->created_at == $post->subCategory->updated_at ? 'Not Updated' : $post->subCategory->updated_at->toDayDateTimeString()}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>      
+        {{-- User Details --}}
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="card bg-primary">
+                    <div class="card-header bg-primary p-2">
+                        <h4 class="text-white">User Details</h4>
+                        {{-- <a href="" class="btn btn-md btn-dark"> < Details</a> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-responive table-striped table-bordered table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>ID</th>
+                                    <td>{{$post->user->id}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{{$post->user->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{$post->user->email}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Created At</th>
+                                    <td>{{$post->user->created_at->toDayDateTimeString()}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Updated At</th>
+                                    <td>{{$post->user->created_at == $post->user->updated_at ? 'Not Updated' : $post->user->updated_at->toDayDateTimeString()}}</td>
                                 </tr>
 
                             </tbody>
