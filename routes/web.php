@@ -22,7 +22,10 @@ use Illuminate\Support\Facades\Route;
 */
 // Frontend
 Route::get('/',[FrontendController::class, 'index'])->name('front.index');
-Route::get('/single-post',[FrontendController::class, 'single'])->name('front.single');
+Route::get('/category/{slug}',[FrontendController::class, 'index'])->name('front.category');
+Route::get('/category/{cat_slug}/{sub_cat_slug}',[FrontendController::class, 'index'])->name('front.sub-category');
+Route::get('/tag/{tag}',[FrontendController::class, 'index'])->name('front.tag');
+Route::get('/single-post/{slug}',[FrontendController::class, 'single'])->name('front.single');
 Route::get('/about',[FrontendController::class, 'about'])->name('front.about');
 Route::get('/contact',[FrontendController::class, 'contact'])->name('front.contact');
 
