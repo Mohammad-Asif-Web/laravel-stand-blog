@@ -16,7 +16,7 @@
               <a class="nav-link" href="{{route('front.about')}}">About Us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('front.single')}}">Post Details</a>
+              <a class="nav-link" href="">Post Details</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{route('front.contact')}}">Contact Us</a>
