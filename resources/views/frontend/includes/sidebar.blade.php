@@ -38,12 +38,15 @@
             </div>
             <div class="content">
               <ul>
-                <li><a href="#">- Nature Lifestyle</a></li>
-                <li><a href="#">- Awesome Layouts</a></li>
-                <li><a href="#">- Creative Ideas</a></li>
-                <li><a href="#">- Responsive Templates</a></li>
-                <li><a href="#">- HTML5 / CSS3 Templates</a></li>
-                <li><a href="#">- Creative &amp; Unique</a></li>
+                @foreach ($my_categories as $category)
+                <li><a href="#">{{$category->name}}</a>
+                  <ul class="sidebar-sub">
+                    @foreach ($category->sub_categories as $sub_category)
+                      <li class="sub-list"><a href="#">-{{$sub_category->name}}</a>
+                    @endforeach
+                  </ul>
+                </li>
+                @endforeach
               </ul>
             </div>
           </div>
