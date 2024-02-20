@@ -3,6 +3,15 @@
 .sidebar .sidebar-item.categories .content .sidebar-sub{
     margin-left: 20px ;
 }
+.sidebar .sidebar-item.categories .content .sidebar-sub .sub-list{
+    margin-bottom: 0;
+}
+.sidebar-sub .sub-list a{
+    color: #aaa !important;
+}
+.sidebar-sub .sub-list a:hover{
+    color: #f48840 !important;
+}
 
 
 /* sidebar edit end */
