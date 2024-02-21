@@ -22,8 +22,11 @@ use Illuminate\Support\Facades\Route;
 */
 // Frontend
 Route::get('/',[FrontendController::class, 'index'])->name('front.index');
-Route::get('/category/{slug}',[FrontendController::class, 'index'])->name('front.category');
-Route::get('/category/{cat_slug}/{sub_cat_slug}',[FrontendController::class, 'index'])->name('front.sub-category');
+Route::get('/all-posts',[FrontendController::class, 'all_posts'])->name('front.all-posts');
+Route::get('/search',[FrontendController::class, 'search'])->name('front.search');
+
+Route::get('/category/{slug}',[FrontendController::class, 'category'])->name('front.category');
+Route::get('/category/{cat_slug}/{sub_cat_slug}',[FrontendController::class, 'sub_category'])->name('front.sub-category');
 Route::get('/tag/{tag}',[FrontendController::class, 'index'])->name('front.tag');
 Route::get('/single-post/{slug}',[FrontendController::class, 'single'])->name('front.single');
 Route::get('/about',[FrontendController::class, 'about'])->name('front.about');
