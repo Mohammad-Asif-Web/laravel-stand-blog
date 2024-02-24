@@ -3,18 +3,94 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\SubCategory;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FrontendController extends Controller
 {
     public function index()
     {
-        return view('frontend.modules.index');
+        $query = Post::with('category','subCategory','tag','user')->where('is_approved',1)->where('status',1);
+        $posts = $query->latest()->take(5)->get();
+        $slider_posts = $query->inRandomOrder()->take(5)->get();
+        return view('frontend.modules.index', compact('posts', 'slider_posts'));
     }
-    public function single()
+
+    public function all_posts()
     {
-        return view('frontend.modules.single');
+        $sub_title = 'View Blogs';
+        $title = 'All Blog Post';
+        $all_posts = Post::with('category','subCategory','tag','user')
+        ->where('is_approved',1)->where('status',1)
+        ->latest()->paginate(6);
+        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title'));
     }
+
+    public function search(Request $request)
+    {
+        $sub_title = 'Search Result';
+        $title = $request->input('search');
+        $searchData = $request->input('search');
+        $all_posts = Post::with('category','subCategory','tag','user')
+        ->where('is_approved',1)->where('status',1)
+        ->where('title', 'like', '%'.$searchData.'%')
+        ->latest()->paginate(5);
+        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title'));
+    }
+
+    public function category($slug)
+    {
+        $category = Category::where('slug', $slug)->first();
+        $all_posts = Post::with('category','subCategory','tag','user')
+        ->where('is_approved',1)->where('status',1)
+        ->where('category_id', $category->id)
+        ->latest()->paginate(5);
+        
+        $sub_title = 'Post by Category';
+        $title = $category->name;
+        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title'));  
+    }
+
+    public function sub_category($slug, $sub_slug )
+    {
+        $sub_category = SubCategory::where('slug', $sub_slug)->first();
+        $all_posts = Post::with('category','subCategory','tag','user')
+        ->where('is_approved',1)->where('status',1)
+        ->where('sub_category_id', $sub_category->id)
+        ->latest()->paginate(5);
+        
+        $sub_title = 'Post by Sub Category';
+        $title = $sub_category->name;
+        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title'));  
+    }
+
+    public function tag($slug)
+    {
+        // distinct = minimize the duplicate record
+        // whereIn = accepts array data 
+        $tag = Tag::where('slug', $slug)->first();
+        $post_ids = DB::table('post_tag')->where('tag_id', $tag->id)
+                        ->distinct('post_id')->pluck('post_id');
+        // dd($post_ids);
+        $all_posts = Post::with('category','subCategory','tag','user')
+                        ->where('is_approved',1)->where('status',1)
+                        ->whereIn('id', $post_ids)
+                        ->latest()->paginate(5);
+
+        $sub_title = 'Post by Tag';
+        $title = $tag->name;
+        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title')); 
+    }
+
+
+
+
+
+
     public function about()
     {
         return view('frontend.modules.about');
