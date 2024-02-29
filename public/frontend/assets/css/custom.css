@@ -13,5 +13,15 @@
     color: #f48840 !important;
 }
 
-
 /* sidebar edit end */
+
+/* toastr message */
+.swal2-container.swal2-top-end.swal2-backdrop-show{
+    z-index: 99999 !important;
+}
+
+
+
+
+
+
