@@ -10,6 +10,9 @@ class Post extends Model
     use HasFactory;
     protected $guarded = [];
 
+    // jdi foreign Id post table e thake tahle 'belongsTo', 'belongsToMany'
+    // jdi foreign Id post table e na thake tahle 'hasOne', 'hasMany'
+
     public function tag()
     {
         return $this->belongsToMany(Tag::class);
@@ -25,6 +28,10 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
     }
 
 }
