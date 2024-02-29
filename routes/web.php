@@ -5,10 +5,10 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\TagController;
-use App\Http\Controllers\CommentController;
+
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
-// use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,7 +45,7 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['auth','verified']],function
     Route::resource('/sub-category', SubCategoryController::class);
     Route::resource('/tag', TagController::class);
     Route::resource('/post', PostController::class);
-    Route::resource('add-comment', CommentController::class);
+    Route::resource('/comment', CommentController::class);
 
 });
 
