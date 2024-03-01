@@ -29,9 +29,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+    // 'comment_id' column er je value null jegulo segulo ke call kra hoise
     public function comment()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->whereNull('comment_id');
     }
 
 }
