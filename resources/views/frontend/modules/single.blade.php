@@ -82,18 +82,28 @@
                         <div class="right-content">
                           <h4>{{$comment->user?->name}}<span>{{$comment->created_at->format('M d, Y')}}</span></h4>
                           <p>{{$comment->comment}}</p>
+                          
+                          {!! Form::open(['method'=>'post', 'route'=>'comment.store']) !!}
+                          {!! Form::hidden('post_id', $post->id) !!}
+                          {!! Form::hidden('comment_id', $comment->id) !!}
+                          {!! Form::textarea('comment', null, ['class'=>'form-control mt-3', 'id'=>'reply-text', 'placeholder'=>'write your reply']) !!}
+                          {!! Form::button('Reply', ['class'=>'btn btn-sm btn-outline-success mt-2', 'type'=>'submit']) !!}
+                          {!! Form::close() !!}
                         </div>
                       </li>
                         {{-- reply --}}
-                      <li class="replied">
-                        <div class="author-thumb">
-                          <img src="{{asset('frontend/assets/images/comment-author-02.jpg')}}" alt="">
-                        </div>
-                        <div class="right-content">
-                          <h4>Thirteen Man<span>May 20, 2020</span></h4>
-                          <p>In porta urna sed venenatis sollicitudin. Praesent urna sem, pulvinar vel mattis eget.</p>
-                        </div>
-                      </li>
+                        @foreach ($comment->reply as $reply)
+                        <li class="replied">
+                          <div class="author-thumb">
+                            <img src="{{asset('frontend/assets/images/comment-author-02.jpg')}}" alt="">
+                          </div>
+                          <div class="right-content">
+                            <h4>{{$reply->user?->name}}<span>{{$reply->created_at->format('M d, Y')}}</span></h4>
+                            <p>{{$reply->comment}}</p>
+                          </div>
+                        </li>
+                        @endforeach
+
                       @endforeach
                     </ul>
                   </div>
