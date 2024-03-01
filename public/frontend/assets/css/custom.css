@@ -20,6 +20,10 @@
     z-index: 99999 !important;
 }
 
+/* comment reply box of single page */
+textarea#reply-text {
+    height: 50px;
+}
 
 
 
