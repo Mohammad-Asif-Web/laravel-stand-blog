@@ -86,7 +86,17 @@ class FrontendController extends Controller
         return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title')); 
     }
 
+    public function single($slug)
+    {
+        $post = Post::with('category', 'subCategory', 'tag', 'user', 'comment', 'comment.user')
+                    ->where('is_approved',1)->where('status',1)
+                    ->where('slug', $slug)
+                    ->firstOrFail();
 
+        $sub_title = 'Post Details';
+        $title = $post->title;
+        return view('frontend.modules.single', compact('post', 'sub_title', 'title'));
+    }
 
 
 
