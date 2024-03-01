@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\TagController;
 
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,7 @@ Route::get('/single-post/{slug}',[FrontendController::class, 'single'])->name('f
 
 Route::get('/about',[FrontendController::class, 'about'])->name('front.about');
 Route::get('/contact',[FrontendController::class, 'contact'])->name('front.contact');
+Route::post('/contact',[ContactController::class, 'store'])->name('contact.store');
 
 // Backend
 // Routes group with Prefix, multi Middlewares and names

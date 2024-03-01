@@ -99,13 +99,13 @@ class FrontendController extends Controller
     }
 
 
-
-
     public function about()
     {
         return view('frontend.modules.about');
     }
-    public function contact()
+
+    // 'final' keyword use for, this is method can not be override in future
+    final public function contact()
     {
         return view('frontend.modules.contact');
     }

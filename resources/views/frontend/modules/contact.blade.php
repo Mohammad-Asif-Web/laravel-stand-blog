@@ -29,20 +29,35 @@
             <div class="row">
               <div class="col-lg-8">
                 <div class="sidebar-item contact-form">
+                  @if ($errors->any())
+                    <div class="alert alert-danger">
+                      <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  @endif
                   <div class="sidebar-heading">
                     <h2>Send us a message</h2>
                   </div>
                   <div class="content">
-                    <form id="contact" action="" method="post">
+                    <form id="contact" action="{{route('contact.store')}}" method="post">
+                      @csrf
                       <div class="row">
                         <div class="col-md-6 col-sm-12">
                           <fieldset>
-                            <input name="name" type="text" id="name" placeholder="Your name" required="">
+                            <input name="name" type="text" id="name" placeholder="Your name">
                           </fieldset>
                         </div>
                         <div class="col-md-6 col-sm-12">
                           <fieldset>
-                            <input name="email" type="text" id="email" placeholder="Your email" required="">
+                            <input name="email" type="text" id="email" placeholder="Your email">
+                          </fieldset>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                          <fieldset>
+                            <input name="phone" type="text" id="name" placeholder="Your phone">
                           </fieldset>
                         </div>
                         <div class="col-md-12 col-sm-12">
@@ -52,7 +67,7 @@
                         </div>
                         <div class="col-lg-12">
                           <fieldset>
-                            <textarea name="message" rows="6" id="message" placeholder="Your Message" required=""></textarea>
+                            <textarea name="message" rows="6" id="message" placeholder="Your Message"></textarea>
                           </fieldset>
                         </div>
                         <div class="col-lg-12">
@@ -102,4 +117,23 @@
       </div>
     </div>
   </section>
+
+  @if (session('msg'))        
+  @push('js')
+      <script>
+          const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+          })
+          Toast.fire({
+              icon: '{{ session('cls') }}',
+              title: '{{ session('msg') }}'
+          })
+      </script>
+  @endpush
+@endif
+
 @endsection
