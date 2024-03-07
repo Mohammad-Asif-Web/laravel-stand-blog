@@ -36,6 +36,9 @@ Route::get('/about',[FrontendController::class, 'about'])->name('front.about');
 Route::get('/contact',[FrontendController::class, 'contact'])->name('front.contact');
 Route::post('/contact',[ContactController::class, 'store'])->name('contact.store');
 
+Route::get('/get-district/{division_id}',[ProfileController::class, 'getDistrict'])->name('get-district');
+
+
 // Backend
 // Routes group with Prefix, multi Middlewares and names
 Route::group(['prefix'=>'dashboard', 'middleware'=>['auth','verified']],function(){
@@ -48,17 +51,8 @@ Route::group(['prefix'=>'dashboard', 'middleware'=>['auth','verified']],function
     Route::resource('/tag', TagController::class);
     Route::resource('/post', PostController::class);
     Route::resource('/comment', CommentController::class);
+    Route::resource('/profile', ProfileController::class);
 
-});
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
