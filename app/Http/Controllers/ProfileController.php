@@ -2,59 +2,119 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Profile;
+use App\Models\District;
+use App\Models\Division;
+use App\Models\Thana;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Display a listing of the resource.
+     * @return View
      */
-    public function edit(Request $request): View
+    final public function index():View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $divisions = Division::pluck('name', 'id');
+        $profile = Profile::where('user_id', Auth::id())->first();
+
+        return view('backend.modules.profile.profile', compact('divisions', 'profile'));
     }
 
     /**
-     * Update the user's profile information.
+     * Show the form for creating a new resource.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function create()
     {
-        $request->user()->fill($request->validated());
+        //
+    }
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+
+        $this->validate($request, [
+            'phone' => 'required',
+            'gender' => 'required',
+            'division_id' => 'required',
+            'district_id' => 'required',
+            'thana_id' => 'required',
+        ]);
+        $profile_data = $request->all();
+        $profile_data['user_id'] = Auth::id();
+
+        $existing_profile = Profile::where('user_id', Auth::id())->first();
+        if($existing_profile){
+            $existing_profile->update($profile_data);
+        } else {
+            Profile::create($profile_data);
         }
 
-        $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        // dd($profile_data);
+        return redirect()->back();
+    }
+
+
+    /**
+     * @param int $division_id
+     * @return JsonResponse
+     */
+    final public function getDistrict(int $division_id):JsonResponse
+    {
+        $district = District::select('name', 'id')->where('division_id', $division_id)->get();
+        // dd($district);
+        return response()->json($district);
     }
 
     /**
-     * Delete the user's account.
+     * @param int $district_id
+     * @return JsonResponse
      */
-    public function destroy(Request $request): RedirectResponse
+    final public function getThana(int $district_id):JsonResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+        $thana = Thana::select('name', 'id')->where('district_id', $district_id)->get();
+        // dd($thana);
+        return response()->json($thana);
+    }
 
-        $user = $request->user();
 
-        Auth::logout();
 
-        $user->delete();
+    /**
+     * Display the specified resource.
+     */
+    public function show(Profile $profile)
+    {
+        //
+    }
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Profile $profile)
+    {
+        //
+    }
 
-        return Redirect::to('/');
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Profile $profile)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Profile $profile)
+    {
+        //
     }
 }

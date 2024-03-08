@@ -37,6 +37,7 @@ Route::get('/contact',[FrontendController::class, 'contact'])->name('front.conta
 Route::post('/contact',[ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/get-district/{division_id}',[ProfileController::class, 'getDistrict'])->name('get-district');
+Route::get('/get-thana/{district_id}',[ProfileController::class, 'getThana'])->name('get-thana');
 
 
 // Backend
