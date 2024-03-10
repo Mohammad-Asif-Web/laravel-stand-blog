@@ -6,10 +6,12 @@ use App\Models\Profile;
 use App\Models\District;
 use App\Models\Division;
 use App\Models\Thana;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -82,6 +84,40 @@ class ProfileController extends Controller
         $thana = Thana::select('name', 'id')->where('district_id', $district_id)->get();
         // dd($thana);
         return response()->json($thana);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    final public function uploadProfilePhoto(Request $request):JsonResponse
+    {
+        $file = $request->input('photo');
+        $name = Str::slug(Auth::user()->name.Carbon::now());
+        $width = 200;
+        $height = 200;
+        $path = 'images/user/';
+
+        $profile = Profile::where('user_id', Auth::id())->first();
+        if($profile?->photo){
+            PhotoUploadController::imageUnlink($path, $profile->photo);
+        }
+        
+        $image_name =  PhotoUploadController::imageUpload($name, $height, $width, $path, $file);
+        $profile_data['photo'] = $image_name;
+
+        if($profile){
+            $profile->update($profile_data);
+            return response()->json([
+                'msg' => 'Profile photo updated successfully',
+                'cls' => 'success',
+                'photo' => url($path, $profile->photo)
+            ]);
+        }
+
+        return response()->json([
+            'msg' => 'Please update profile first',
+            'cls' => 'warning',
+        ]);
     }
 
 

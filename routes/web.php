@@ -43,6 +43,7 @@ Route::get('/get-thana/{district_id}',[ProfileController::class, 'getThana'])->n
 // Backend
 // Routes group with Prefix, multi Middlewares and names
 Route::group(['prefix'=>'dashboard', 'middleware'=>['auth','verified']],function(){
+    Route::post('upload-profile-photo', [ProfileController::class, 'uploadProfilePhoto']);
     Route::get('/',[BackendController::class, 'index'])->name('back.index');
     Route::get('/blank',[BackendController::class, 'blankPage'])->name('blank');
     Route::resource('/category', CategoryController::class);
