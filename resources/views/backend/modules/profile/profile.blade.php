@@ -83,10 +83,20 @@
         <div class="row mt-1">
             <div class="card">
                 <div class="card-body">
-                    <img src="{{asset('images/user/'.$profile->photo)}}" id="previous_img"
-                         style="{{$profile->photo == null ? 'display:none' : 'display:block'}}"
-                         class="img-thumbnail" alt="profile-photo"
-                     >
+                    {{-- @if ($profile->photo == null)
+                        <img src="{{asset('images/user/'.$profile->photo)}}" id="previous_img"
+                        style="display:none" class="img-thumbnail" alt="profile-photo">
+                    @else
+                        <img src="{{asset('images/user/'.$profile->photo)}}" id="previous_img"
+                            style="display:block" class="img-thumbnail" alt="profile-photo">
+                    @endif --}}
+
+                    @isset($profile)
+                        <img src="{{asset('images/user/'.$profile->photo)}}" id="previous_img"
+                        style="{{$profile->photo == null ? 'display:none' : 'display:block'}}"
+                        class="img-thumbnail" alt="profile-photo">
+                    @endisset
+
                     <label for="photo" class="w-100 my-3">Upload Profile Photo</label>
                     <form>
                         <input type="file" class="form-control" id="image_input">
@@ -106,6 +116,7 @@
 {{-- # $('#') () ! $(this) --}}
 <script>
 
+    // button e spinner process krte thakbe jotokhon na button submit hoy
     let is_loading = false;
     let handleLoading = () =>{
         if(is_loading){
@@ -135,6 +146,7 @@
     })
 
     $('#img_upload_btn').on('click', function(){
+        // button e matro click kra hoise, tai adike theke spinner ghura suru krbe
         is_loading = true;
         handleLoading();
         // যদি ছবি ছাড়া সাবমিট বাটন প্রেস পরে তাহলে ইরর মেসেজ দিবে
@@ -145,6 +157,12 @@
             axios.post(`${DomainUrl}/dashboard/upload-profile-photo`, {
                 photo: photo,
             }).then(res => {
+                // data chole asche tai spinner ghura bondho krte hoise
+                // sathe reset button e trigger method er dhara click kre input file reset kra hoise
+                // nicher image tike null kore deya hoise
+                // preivious image tike show kra hoise
+                // pore sweet alert er maddhome alert message deya hoise,controller theke pathano
+                // json formate e varibale 'cls', 'msg' diye.
                 is_loading = false;
                 handleLoading();
                 let response = res.data
