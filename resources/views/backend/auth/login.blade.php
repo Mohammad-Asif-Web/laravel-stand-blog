@@ -60,6 +60,8 @@
         </form>
     </div>
 
+    <p class="text-center">password: 12345678</p>
+
 
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
