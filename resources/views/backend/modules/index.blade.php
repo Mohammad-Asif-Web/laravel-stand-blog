@@ -9,16 +9,10 @@
 <div class="row">
     <div class="col-xl-3 col-md-6">
         <div class="card bg-primary text-white mb-4">
-            <div class="card-body">Primary Card</div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">View Details</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            <div class="card-body d-flex justify-content-between">
+                <span>Total User</span>
+                <span>100</span>
             </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card bg-warning text-white mb-4">
-            <div class="card-body">Warning Card</div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="#">View Details</a>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -27,7 +21,22 @@
     </div>
     <div class="col-xl-3 col-md-6">
         <div class="card bg-success text-white mb-4">
-            <div class="card-body">Success Card</div>
+            <div class="card-body d-flex justify-content-between">
+                <span>Total Post</span>
+                <span>100</span>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between">
+                <a class="small text-white stretched-link" href="#">View Details</a>
+                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-warning text-white mb-4">
+            <div class="card-body d-flex justify-content-between">
+                <span>Waiting Post</span>
+                <span>100</span>
+            </div>
             <div class="card-footer d-flex align-items-center justify-content-between">
                 <a class="small text-white stretched-link" href="#">View Details</a>
                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -44,6 +53,57 @@
         </div>
     </div>
 </div>
+
+{{-- User List --}}
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">
+        <i class="fas fa-table me-1"></i>
+        All Users Details
+    </div>
+    <div class="card-body text-white p-0">
+        <table class="table table-responive table-success table-striped table-bordered table-hover user-list-table">
+            <thead>
+                <tr>
+                    <th>User Id</th>
+                    <th>Name</th>
+                    <th>
+                        <span>Division</span><hr>
+                        <span>District</span><hr>
+                        <span>Thana</span>
+                    </th>
+                    <th>Address</th>
+                    <th>
+                        <span>Phone</span><hr>
+                        <span>Gender</span>
+                    </th>
+                    <th>Role</th>
+                    <th>Photo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($users as $user)
+                <tr>
+                    <td>{{$user->user?->id}}</td>
+                    <td>{{$user->user?->name}}</td>
+                    <td>
+                        <span>{{$user->division?->name}}</span><hr>
+                        <span>{{$user->district?->name}}</span><hr>
+                        <span>{{$user->thana?->name}}</span>
+                    </td>
+                    <td>{{$user->address}}</td>
+                    <td>
+                        <span>{{$user->phone}}</span><hr>
+                        <span>{{$user->gender}}</span>
+                    </td>
+                    <td>admin</td>
+                    <td><img src="{{asset('images/user/'.$user->photo) }}"  style="width:60px; height: 60px; border-radius:50%; " alt=""></td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {{-- Charts --}}
 <div class="row">
     <div class="col-xl-6">
@@ -65,6 +125,7 @@
         </div>
     </div>
 </div>
+
 {{-- Datatables --}}
 <div class="card mb-4">
     <div class="card-header">
@@ -123,7 +184,7 @@
     </div>
 </div>
 @endsection
-    
+
 
 
 
