@@ -1,7 +1,9 @@
-.post-table th, .post-table td{
+.post-table th, .post-table td,
+.user-list-table th, .user-list-table td{
     vertical-align: middle;
 }
-.post-table hr{
+.post-table hr,
+.user-list-table hr{
     margin: 0 0;
 }
 .post-table tr{
@@ -17,7 +19,8 @@
     cursor: pointer;
 }
 
-.post-table th, .post-table th span{
+.post-table th, .post-table th span,
+.user-list-table th, .user-list-table th span{
     font-size: 14px;
     text-align: center;
 }
