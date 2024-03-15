@@ -43,17 +43,31 @@ Route::get('/get-thana/{district_id}',[ProfileController::class, 'getThana'])->n
 // Backend
 // Routes group with Prefix, multi Middlewares and names
 Route::group(['prefix'=>'dashboard', 'middleware'=>['auth','verified']],function(){
-    Route::post('upload-profile-photo', [ProfileController::class, 'uploadProfilePhoto']);
+
     Route::get('/',[BackendController::class, 'index'])->name('back.index');
     Route::get('/blank',[BackendController::class, 'blankPage'])->name('blank');
-    Route::resource('/category', CategoryController::class);
-    // Get Sub Category by Cateogory Id Custom api Route
+    Route::post('upload-profile-photo', [ProfileController::class, 'uploadProfilePhoto']);
     Route::get('/get-subcategory/{id}', [SubCategoryController::class, 'getSubCategoryByCategoryId']);
-    Route::resource('/sub-category', SubCategoryController::class);
-    Route::resource('/tag', TagController::class);
     Route::resource('/post', PostController::class);
     Route::resource('/comment', CommentController::class);
     Route::resource('/profile', ProfileController::class);
+
+    Route::group(['middleware'=>'admin'], function(){
+        Route::resource('/category', CategoryController::class);
+        Route::resource('/sub-category', SubCategoryController::class);
+        Route::resource('/tag', TagController::class);
+
+
+
+
+
+    });
+
+
+
+
+
+
 
 });
 
