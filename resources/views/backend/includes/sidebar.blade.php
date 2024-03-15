@@ -14,6 +14,8 @@
                 </a>
                 {{-- Dropdown link --}}
                 <div class="sb-sidenav-menu-heading">Interface</div>
+
+                @if (Auth::user()->role == App\Models\User::ADMIN)
                                     {{-- category --}}
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded="false" aria-controls="category">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -50,6 +52,7 @@
                         <a class="nav-link" href="{{route('tag.index')}}">Tag List</a>
                     </nav>
                 </div>
+                @endif
                                     {{-- post --}}
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#posts" aria-expanded="false" aria-controls="posts">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
