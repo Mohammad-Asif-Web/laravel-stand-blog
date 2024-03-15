@@ -15,9 +15,9 @@ class BackendController extends Controller
     // user
     public function index()
     {
-        $users = Profile::with('user','division','district','thana')->orderBy('user_id', 'asc')->get();
+        $profileData = Profile::with('user','division','district','thana')->orderBy('user_id', 'asc')->get();
 
-        return view('backend.modules.index', compact('users'));
+        return view('backend.modules.index', compact('profileData'));
     }
 }
 
