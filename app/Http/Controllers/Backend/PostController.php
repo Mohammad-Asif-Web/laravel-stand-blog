@@ -7,6 +7,7 @@ use App\Http\Requests\PostUpdateRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +18,13 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    final public function index()
     {
-        $posts = Post::with('category', 'subCategory', 'user')->latest()->paginate(5);
+        $query =Post::with('category', 'subCategory', 'user','tag')->latest();
+        if (Auth::user()->role === User::USER) {
+            $query->where('user_id', Auth::id());
+        }
+        $posts = $query->paginate(5);
         return view ('backend.modules.post.index', compact('posts'));
     }
 
@@ -86,6 +91,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        // jei user post create krse, sudhu oi user e post show e jete parbe, ar admin
+        if (Auth::user()->role == User::USER && $post->user_id != Auth::id()) {
+            abort(403);
+        }
         $post->load('user','category','subCategory','tag');
         return view ('backend.modules.post.show', compact('post'));
     }
