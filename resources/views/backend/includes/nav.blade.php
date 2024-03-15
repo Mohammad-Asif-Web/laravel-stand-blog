@@ -15,8 +15,12 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
+                @isset(Auth::user()->profile)
                 <img src="{{asset('images/user/'.Auth::user()->profile->photo)}}"
-                    style="width: 35px; height: 35px; border-radius: 50%" alt="{{Auth::user()->profile->photo}}">
+                style="width: 35px; height: 35px; border-radius: 50%
+                {{Auth::user()->profile->photo == null ? 'display:none' : 'display:block'}}">
+                @endisset
+
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li class="text-center">

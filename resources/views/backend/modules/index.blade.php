@@ -81,22 +81,22 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($profileData as $userData)
                 <tr>
-                    <td>{{$user->user?->id}}</td>
-                    <td>{{$user->user?->name}}</td>
+                    <td>{{$userData->user?->id}}</td>
+                    <td>{{$userData->user?->name}}</td>
                     <td>
-                        <span>{{$user->division?->name}}</span><hr>
-                        <span>{{$user->district?->name}}</span><hr>
-                        <span>{{$user->thana?->name}}</span>
+                        <span>{{$userData->division?->name}}</span><hr>
+                        <span>{{$userData->district?->name}}</span><hr>
+                        <span>{{$userData->thana?->name}}</span>
                     </td>
-                    <td>{{$user->address}}</td>
+                    <td>{{$userData->address}}</td>
                     <td>
-                        <span>{{$user->phone}}</span><hr>
-                        <span>{{$user->gender}}</span>
+                        <span>{{$userData->phone}}</span><hr>
+                        <span>{{$userData->gender}}</span>
                     </td>
-                    <td>admin</td>
-                    <td><img src="{{asset('images/user/'.$user->photo) }}"  style="width:60px; height: 60px; border-radius:50%; " alt=""></td>
+                    <td>{{$userData->user?->role == 1 ? 'Admin' : 'User'}}</td>
+                    <td><img src="{{asset('images/user/'.$userData->photo) }}"  style="width:60px; height: 60px; border-radius:50%; " alt=""></td>
                 </tr>
                 @endforeach
             </tbody>
