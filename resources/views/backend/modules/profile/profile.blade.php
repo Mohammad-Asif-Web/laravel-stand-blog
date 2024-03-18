@@ -113,7 +113,7 @@
 
 @push('js')
 <script src="{{asset('backend/js/axios.min.js')}}"></script>
-{{-- # $('#') () ! $(this) --}}
+{{-- # $('#') () ! $(this) @ &  --}}
 <script>
 
     // button e spinner process krte thakbe jotokhon na button submit hoy
