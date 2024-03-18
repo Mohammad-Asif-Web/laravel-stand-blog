@@ -74,7 +74,7 @@
                   </div>
                   <div class="content">
                     <ul>
-                      @foreach ($post->comment as $comment)  
+                      @foreach ($post->comment as $comment)
                       <li>
                         <div class="author-thumb">
                           <img src="{{asset('frontend/assets/images/comment-author-01.jpg')}}" alt="">
@@ -82,7 +82,7 @@
                         <div class="right-content">
                           <h4>{{$comment->user?->name}}<span>{{$comment->created_at->format('M d, Y')}}</span></h4>
                           <p>{{$comment->comment}}</p>
-                          
+
                           {!! Form::open(['method'=>'post', 'route'=>'comment.store']) !!}
                           {!! Form::hidden('post_id', $post->id) !!}
                           {!! Form::hidden('comment_id', $comment->id) !!}
@@ -136,13 +136,26 @@
           </div>
         </div>
         {{-- sidebar --}}
-        @include('frontend.includes.sidebar') 
+        @include('frontend.includes.sidebar')
 
       </div>
     </div>
   </section>
 
-  @if (session('msg'))        
+  @push('js')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    setTimeout(() => {
+        axios.get(window.location.origin+'/post-count/'+{{$post->id}})
+
+    }, 5000);
+  </script>
+
+  @endpush
+
+
+  @if (session('msg'))
     @push('js')
         <script>
             const Toast = Swal.mixin({

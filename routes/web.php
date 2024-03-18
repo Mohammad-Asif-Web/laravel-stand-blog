@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\TagController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PostCountController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::get('/category/{slug}',[FrontendController::class, 'category'])->name('fr
 Route::get('/category/{cat_slug}/{sub_cat_slug}',[FrontendController::class, 'sub_category'])->name('front.sub-category');
 Route::get('/tag/{tag}',[FrontendController::class, 'tag'])->name('front.tag');
 Route::get('/single-post/{slug}',[FrontendController::class, 'single'])->name('front.single');
+Route::get('/post-count/{post_id}',[FrontendController::class, 'postReadCount']);
 
 Route::get('/about',[FrontendController::class, 'about'])->name('front.about');
 Route::get('/contact',[FrontendController::class, 'contact'])->name('front.contact');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PostCountController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\SubCategory;
@@ -49,10 +50,10 @@ class FrontendController extends Controller
         ->where('is_approved',1)->where('status',1)
         ->where('category_id', $category->id)
         ->latest()->paginate(5);
-        
+
         $sub_title = 'Post by Category';
         $title = $category->name;
-        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title'));  
+        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title'));
     }
 
     public function sub_category($slug, $sub_slug )
@@ -62,16 +63,16 @@ class FrontendController extends Controller
         ->where('is_approved',1)->where('status',1)
         ->where('sub_category_id', $sub_category->id)
         ->latest()->paginate(5);
-        
+
         $sub_title = 'Post by Sub Category';
         $title = $sub_category->name;
-        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title'));  
+        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title'));
     }
 
     public function tag($slug)
     {
         // distinct = minimize the duplicate record
-        // whereIn = accepts array data 
+        // whereIn = accepts array data
         $tag = Tag::where('slug', $slug)->first();
         $post_ids = DB::table('post_tag')->where('tag_id', $tag->id)
                         ->distinct('post_id')->pluck('post_id');
@@ -83,7 +84,7 @@ class FrontendController extends Controller
 
         $sub_title = 'Post by Tag';
         $title = $tag->name;
-        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title')); 
+        return view('frontend.modules.all_posts', compact('all_posts', 'sub_title', 'title'));
     }
 
     public function single($slug)
@@ -99,7 +100,18 @@ class FrontendController extends Controller
     }
 
 
-    public function about()
+    final public function postReadCount($post_id): void
+    {
+        // jdi class er multiple methods and properties call krte hoy, tahle aivabe call kra jay.
+        // atai good practice class er multiple data niye kaj krte
+        $post_count = new PostCountController($post_id);
+        $post_count->postReadCount();
+
+        // jdi class er shudhu 1ti method ke use krte hoy, tahle ai vabe akbar method ke call kra jay
+        // (new PostCountController($post_id))->postReadCount();
+    }
+
+    final public function about()
     {
         return view('frontend.modules.about');
     }
