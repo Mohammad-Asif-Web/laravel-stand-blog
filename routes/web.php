@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\TagController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PostCountController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,7 @@ Route::post('/contact',[ContactController::class, 'store'])->name('contact.store
 Route::get('/get-district/{division_id}',[ProfileController::class, 'getDistrict'])->name('get-district');
 Route::get('/get-thana/{district_id}',[ProfileController::class, 'getThana'])->name('get-thana');
 
+Route::get('/lang/{lang}', [LanguageController::class, 'switchLang'])->name('lang.switch');
 
 // Backend
 // Routes group with Prefix, multi Middlewares and names
